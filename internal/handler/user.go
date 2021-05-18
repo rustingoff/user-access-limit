@@ -3,8 +3,9 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	"user_access_limit/internal/models"
-	"user_access_limit/internal/privileges"
+
+	"github.com/rustingoff/user-access-limit/internal/models"
+	"github.com/rustingoff/user-access-limit/internal/privileges"
 )
 
 var user *models.User = &models.User{

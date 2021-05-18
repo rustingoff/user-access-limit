@@ -3,9 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
-	"user_access_limit/internal/handler"
-	"user_access_limit/internal/repository"
-	"user_access_limit/internal/service"
+
+	"github.com/rustingoff/user-access-limit/internal/handler"
+	"github.com/rustingoff/user-access-limit/internal/repository"
+	"github.com/rustingoff/user-access-limit/internal/service"
 
 	"github.com/jmoiron/sqlx"
 )

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"user_access_limit/internal/models"
+	"github.com/rustingoff/user-access-limit/internal/models"
 
 	"github.com/jmoiron/sqlx"
 )

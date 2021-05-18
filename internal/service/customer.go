@@ -1,8 +1,8 @@
 package service
 
 import (
-	"user_access_limit/internal/models"
-	"user_access_limit/internal/repository"
+	"github.com/rustingoff/user-access-limit/internal/models"
+	"github.com/rustingoff/user-access-limit/internal/repository"
 )
 
 type CustomerService struct {

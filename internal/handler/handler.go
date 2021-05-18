@@ -2,7 +2,8 @@ package handler
 
 import (
 	"net/http"
-	"user_access_limit/internal/service"
+
+	"github.com/rustingoff/user-access-limit/internal/service"
 )
 
 type Handler struct {
