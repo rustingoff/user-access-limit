@@ -1,17 +1,18 @@
 package repository
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/rustingoff/user-access-limit/internal/models"
-
-	"github.com/jmoiron/sqlx"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type UserRepository struct {
-	db *sqlx.DB
+	mongo *mongo.Client
+	pg    *gorm.DB
 }
 
-func NewUserRepository(db *sqlx.DB) *UserRepository {
-	return &UserRepository{db: db}
+func NewUserRepository(mongo *mongo.Client, pg *gorm.DB) *UserRepository {
+	return &UserRepository{mongo, pg}
 }
 
 func (u *UserRepository) Create(user models.User) (int, error) {

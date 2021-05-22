@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+  db:
+    image: mongo
+    container_name: "mongoTructrace"
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: trucktrace
+      MONGO_INITDB_ROOT_USERNAME: trucktrace
+      MONGO_INITDB_ROOT_PASSWORD: trucktrace
+    command: mongod
+
+  redis:
+    image: redis
+    volumes:
+      - /data/db/redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: trucktrace
+      POSTGRES_PASSWORD: trucktrace
+      PGDATA: /data/db/postgres

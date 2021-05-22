@@ -1,17 +1,18 @@
 package repository
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/rustingoff/user-access-limit/internal/models"
-
-	"github.com/jmoiron/sqlx"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type OrderRepository struct {
-	db *sqlx.DB
+	mongo *mongo.Client
+	pg    *gorm.DB
 }
 
-func NewOrderRepository(db *sqlx.DB) *OrderRepository {
-	return &OrderRepository{db: db}
+func NewOrderRepository(mongo *mongo.Client, pg *gorm.DB) *OrderRepository {
+	return &OrderRepository{mongo, pg}
 }
 
 func (u *OrderRepository) Create(order models.Order) (int, error) {

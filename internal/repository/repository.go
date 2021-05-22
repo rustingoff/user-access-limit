@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/rustingoff/user-access-limit/internal/models"
-
-	"github.com/jmoiron/sqlx"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type User interface {
@@ -33,10 +33,10 @@ type Repository struct {
 	Customer
 }
 
-func NewRepository(db *sqlx.DB) *Repository {
+func NewRepository(mongo *mongo.Client, pg *gorm.DB) *Repository {
 	return &Repository{
-		User:     NewUserRepository(db),
-		Order:    NewOrderRepository(db),
-		Customer: NewCustomerRepository(db),
+		User:     NewUserRepository(mongo, pg),
+		Order:    NewOrderRepository(mongo, pg),
+		Customer: NewCustomerRepository(mongo, pg),
 	}
 }
