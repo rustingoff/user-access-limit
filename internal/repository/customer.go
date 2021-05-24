@@ -1,17 +1,18 @@
 package repository
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/rustingoff/user-access-limit/internal/models"
-
-	"github.com/jmoiron/sqlx"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type CustomerRepository struct {
-	db *sqlx.DB
+	mongo *mongo.Client
+	pg    *gorm.DB
 }
 
-func NewCustomerRepository(db *sqlx.DB) *CustomerRepository {
-	return &CustomerRepository{db: db}
+func NewCustomerRepository(mongo *mongo.Client, pg *gorm.DB) *CustomerRepository {
+	return &CustomerRepository{mongo, pg}
 }
 
 func (u *CustomerRepository) Create(customer models.Customer) (int, error) {

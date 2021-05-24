@@ -23,3 +23,10 @@ func (h *Handler) getUsers(w http.ResponseWriter, r *http.Request, privileg map[
 	}
 	json.NewEncoder(w).Encode(user)
 }
+
+func (h *Handler) testingRoute(w http.ResponseWriter, r *http.Request, privileg map[uint]bool) {
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"Name":   "Iliaposmac",
+		"Skills": "adsadsaddas",
+	})
+}

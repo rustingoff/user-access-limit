@@ -4,22 +4,41 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
 	"github.com/rustingoff/user-access-limit/internal/handler"
 	"github.com/rustingoff/user-access-limit/internal/repository"
 	"github.com/rustingoff/user-access-limit/internal/service"
-
-	"github.com/jmoiron/sqlx"
+	"github.com/rustingoff/user-access-limit/pkg/database"
 )
+
+var postgresClient *gorm.DB
 
 func main() {
 
-	var db *sqlx.DB
+	mongoClient, err := database.InitMongoDB(&database.MongoConfig{
+		Username: "trucktrace",
+		Password: "trucktrace",
+		Host:     "localhost",
+		Port:     "27017",
+	})
 
-	repos := repository.NewRepository(db)
+	if err != nil {
+		log.Fatal("Can not init mongo")
+	}
+
+	postgresClient, pgerr := database.InitPostgresDB()
+
+	if pgerr != nil {
+		log.Fatal("can not init postgres")
+	}
+
+	repos := repository.NewRepository(mongoClient, postgresClient)
 	service := service.NewService(repos)
 	handlers := handler.NewHandler(service)
 
-	if err := http.ListenAndServe(":8080", handlers.InitRoutes()); err != nil {
+	if err := http.ListenAndServe("localhost:8080", handlers.InitRoutes()); err != nil {
 		log.Fatalf("Can't run server... %s", err.Error())
 	}
+
+	log.Print("Server was started")
 }

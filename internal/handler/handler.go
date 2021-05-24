@@ -20,6 +20,7 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 	router := http.NewServeMux()
 
 	router.HandleFunc("/view", CheckPrivileges("/", h.getUsers))
+	router.HandleFunc("/test", TestingRoute("/", h.testingRoute))
 
 	return router
 }
