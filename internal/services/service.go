@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/rustingoff/user-access-limit/internal/models"
-	"github.com/rustingoff/user-access-limit/internal/repository"
+	"github.com/trucktrace/internal/models"
+	"github.com/trucktrace/internal/repository"
 )
 
 type User interface {
@@ -26,14 +26,14 @@ type Customer interface {
 	View() ([]models.Customer, error)
 }
 
-type Service struct {
+type Services struct {
 	User
 	Order
 	Customer
 }
 
-func NewService(repos *repository.Repository) *Service {
-	return &Service{
+func NewService(repos *repository.Repository) *Services {
+	return &Services{
 		User:     NewUserService(repos.User),
 		Order:    NewOrderService(repos.Order),
 		Customer: NewCustomerService(repos.Customer),

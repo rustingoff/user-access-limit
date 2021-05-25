@@ -1,17 +1,19 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 
 	"github.com/jinzhu/gorm"
-	"github.com/rustingoff/user-access-limit/internal/handler"
-	"github.com/rustingoff/user-access-limit/internal/repository"
-	"github.com/rustingoff/user-access-limit/internal/service"
-	"github.com/rustingoff/user-access-limit/pkg/database"
+	server "github.com/trucktrace"
+	"github.com/trucktrace/internal/repository"
+	service "github.com/trucktrace/internal/services"
+	"github.com/trucktrace/pkg/database"
 )
 
 var postgresClient *gorm.DB
+var ser *server.Server
 
 func main() {
 
@@ -31,14 +33,23 @@ func main() {
 	if pgerr != nil {
 		log.Fatal("can not init postgres")
 	}
+	defer postgresClient.Close()
 
 	repos := repository.NewRepository(mongoClient, postgresClient)
 	service := service.NewService(repos)
-	handlers := handler.NewHandler(service)
+	handlers := controllers.NewHandler(service)
 
 	if err := http.ListenAndServe("localhost:8080", handlers.InitRoutes()); err != nil {
 		log.Fatalf("Can't run server... %s", err.Error())
 	}
 
-	log.Print("Server was started")
+	initiateRoutes := ser.Run("8080", controllers.InitRoutes())
+
+	if initiateRoutes != nil {
+		// logger.FatalLogger("Can't initiate routes", "cmd/main/main.go", initiateRoutes.Error())
+		ser.ShutDown(context.Background())
+	}
+
+	// Printing the starting message
+	// logger.InfoLogger("Server was running on 127.0.0.1:8080", "cmd/main/main.go", "Success")
 }

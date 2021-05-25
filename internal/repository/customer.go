@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/rustingoff/user-access-limit/internal/models"
+	"github.com/trucktrace/internal/models"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

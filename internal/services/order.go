@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/rustingoff/user-access-limit/internal/models"
-	"github.com/rustingoff/user-access-limit/internal/repository"
+	"github.com/trucktrace/internal/models"
+	"github.com/trucktrace/internal/repository"
 )
 
 type OrderService struct {

@@ -1,31 +1,42 @@
 package privileges
 
-const (
-	CreateDriver = iota
-	UpdateDriver
-	DeleteDriver
-	ViewDrivers
-	CreateOrder
-	UpdateOrder
-	DeleteOrder
-	ViewOrders
-	CreateCustomer
-	UpdateCustomer
-	DeleteCustomer
-	ViewCustomers
-)
+import "go.mongodb.org/mongo-driver/x/mongo/driver/uuid"
 
-var Admin = map[uint]bool{
-	CreateDriver:   true,
-	UpdateDriver:   true,
-	DeleteDriver:   true,
-	ViewDrivers:    true,
-	CreateOrder:    true,
-	UpdateOrder:    true,
-	DeleteOrder:    true,
-	ViewOrders:     true,
-	CreateCustomer: true,
-	UpdateCustomer: true,
-	DeleteCustomer: true,
-	ViewCustomers:  true,
+// type Priveleges interface {
+// 	CreateUser()
+// 	UpdateUser()
+// 	GetAllUsers()
+// 	GetUserById()
+// }
+
+type PrivelegesList = interface{}{
+	"CreateUser":  true,
+	"DeleteUser":  true,
+	"GetAllUsers": true,
 }
+
+type PrivelegesStruct struct {
+	Priveleges PrivelegesList
+}
+
+type CompanyDirector struct {
+	AllUsers
+	AllPrivelegs
+	AllGroupsCreated
+	AllModels
+}
+
+type Groups struct {
+	Name string
+	Director.id string
+	PrivelegesList map[string]bool
+	Company.id
+	user.ids
+}
+
+type Priveleges struct {
+	Id int
+	PrivName string
+	State bool
+}
+
